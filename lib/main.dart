@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 
-/// Colum Widget digunakan utnuk menyusun widget-widget ke bawah atau secara vertikal
-/// Row Widget digunakan untuk menyusun widget-widget ke samping atau horizontal
-/// Stack Widget digunakan untuk menyusun widget-widget secara tumpuk/stack
-/// Column dan Row mempunyai properti mainAxis dan Cross Axis
+/// ListView Widget digunakan untuk menyusun widget-widget yang tidak diketahui batasannya
+/// ListView dapat di scroll
+/// Scroll dapat di atur tergantung mau ke arah mana vertikal maupun horizontal
+/// ListView.builder mempunyai sebuah properti itemCount dan itemBuilder
+/// ListView.separated mempunya properti tambahan separatedBuilder berfungsi untuk memberikan batasan antar widget
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  // List<Color> listColor = [Colors.red, Colors.amber, Colors.lightBlue];
+  final List<Color> myColor = [Colors.red, Colors.amber, Colors.lightBlue, Colors.green];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false, // menghilangkan banner showDebugBanner
       home: Scaffold(
-        appBar: AppBar( // sebetulnya appBar ini membutuhkan PreferredSizeWidget, tetapi karena AppBar sudah extends jadi tidak perlu lagi
+        appBar: AppBar(
+          // sebetulnya appBar ini membutuhkan PreferredSizeWidget, tetapi karena AppBar sudah extends jadi tidak perlu lagi
           leading: Icon(Icons.code), // biasanya icon
-          title: Text('COLUMN ROW STACK'),
+          title: Text('LIST VIEW'),
           centerTitle: true, // default pada Android adalah false, ios true
           actions: [
             IconButton(
@@ -28,70 +28,15 @@ class MyApp extends StatelessWidget {
             )
           ],
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: 50,
-              height: 50,
-              color: Colors.red,
-            ),
-            Container(
-              width: 50,
-              height: 50,
-              color: Colors.amber,
-            ),
-            Container(
-              width: 50,
-              height: 50,
-              color: Colors.lightBlue,
-            ),
-            Container(
-              width: 50,
-              height: 50,
-              color: Colors.green,
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  width: 50,
-                  height: 50,
-                  color: Colors.deepOrange,
-                ),
-                Container(
-                  width: 50,
-                  height: 50,
-                  color: Colors.pink,
-                )
-              ],
-            ),
-            Stack(
-              children: [
-                Container(
-                  width: 300,
-                  height: 300,
-                  color: Colors.black12,
-                ),
-                Container(
-                  width: 200,
-                  height: 200,
-                  color: Colors.orangeAccent,
-                ),
-                Container(
-                  width: 100,
-                  height: 100,
-                  color: Colors.lightBlue,
-                ),
-                Container(
-                  width: 50,
-                  height: 50,
-                  color: Colors.deepPurple,
-                )
-              ],
-            )
-          ],
+        body: ListView.builder(
+          itemCount: myColor.length,
+          itemBuilder: (contex, index) {
+            return Container(
+              width: 300,
+              height: 300,
+              color: myColor[index],
+            );
+          },
         ),
       ),
     );
