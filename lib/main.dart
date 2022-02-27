@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
-/// ListTile Widget adalah sebuah widget list yang didalamnya terdapat sebuah widget lainnya
-/// Widget lainnya dapat berupa leading, text dan lain lain
-/// Contoh penggunaan adalah ketika kita membuat sebuah list berita yang terdiri dari image, judul, dan sub judul
-/// Contoh lain adalah misalnya list chat pesan seperti wa, line dll
+/// Image Widget adalah sebuah widget untuk menampilkan sebuah image atau gambar
+/// Image yang didukung juga banyak seperti jpg, jpeg, png, svg, webp, dll
+/// Jenis Provider Image bisa menggunakan assets (pada project kita buat folder image)
+/// Network pemanggilan image melalui url secara random, contoh pada web https://picsum.photos/200/300
+/// File -> sumber image berasal dari luar project atau di Device
+/// Memory -> sumber image berasal dari memory
+/// Kecepatan Provider : memory - assets - file - network
+/// Jangan lupa untuk mendaftarkan file image pada pubspec.yaml
 
 void main() => runApp(MyApp());
 
@@ -23,7 +27,7 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           // sebetulnya appBar ini membutuhkan PreferredSizeWidget, tetapi karena AppBar sudah extends jadi tidak perlu lagi
           leading: Icon(Icons.code), // biasanya icon
-          title: Text('LIST TILE'),
+          title: Text('IMAGE WIDGET'),
           centerTitle: true, // default pada Android adalah false, ios true
           actions: [
             IconButton(
@@ -32,46 +36,21 @@ class MyApp extends StatelessWidget {
             )
           ],
         ),
-        body: ListView(
-          children: [
-            ListTile(
-              title: Text('Jution Candra Kirana'),
-              subtitle: Text('Halo apa kabar teman'),
-              leading: CircleAvatar(),
-              trailing: Text('10:10 PM'),
+        body: Center(
+          child: Container(
+            width: 350,
+            height: 500,
+            color: Colors.amber,
+            // child: Image(
+            //   fit: BoxFit.cover, // terdiri dari fill, filHeight, fillWidth, cover dll
+            //   image: AssetImage("images/image_1.jpeg"),
+            //   // image: NetworkImage("https://picsum.photos/200/300"),
+            // ),
+            child: Image.asset(
+              "images/image_2.jpeg",
+              fit: BoxFit.cover,
             ),
-            Divider(
-              color: Colors.black26,
-            ),
-            ListTile(
-              title: Text('Destry Faradila Nur\'avisa'),
-              subtitle: Text(
-                'Bagaiamna keadaan kamu saat ini apakah baik-baik saja ?',
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-              leading: CircleAvatar(),
-              trailing: Text('10:10 PM'),
-            ),
-            Divider(
-              color: Colors.black26,
-            ),
-            ListTile(
-              title: Text('Jution Candra Kirana'),
-              subtitle: Text('Halo apa kabar teman'),
-              leading: CircleAvatar(),
-              trailing: Text('10:10 PM'),
-            ),
-            Divider(
-              color: Colors.black26,
-            ),
-            ListTile(
-              title: Text('Jution Candra Kirana'),
-              subtitle: Text('Halo apa kabar teman'),
-              leading: CircleAvatar(),
-              trailing: Text('10:10 PM'),
-            )
-          ],
+          ),
         ),
       ),
     );
