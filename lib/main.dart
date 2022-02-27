@@ -13,12 +13,14 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int counter = 1;
+  List<Widget> widgets = [];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, // menghilangkan banner showDebugBanner
-      home: Scaffold(
+        debugShowCheckedModeBanner:
+            false, // menghilangkan banner showDebugBanner
+        home: Scaffold(
           appBar: AppBar(
             leading: Icon(Icons.code), // biasanya icon
             title: Text('Counter Sample'),
@@ -30,36 +32,37 @@ class _MyAppState extends State<MyApp> {
               )
             ],
           ),
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          body: ListView(
             children: [
-              Text(
-                "$counter",
-                style: TextStyle(fontSize: 50 + double.parse(counter.toString())),
-              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                       onPressed: () {
-                        if(counter != 1) {
-                          setState(() {
-                            counter--;
-                          });
-                        }
-                      },
-                      child: Icon(Icons.remove)),
-                  ElevatedButton(
-                      onPressed: () {
                         setState(() {
+                          widgets.add(
+                            Text("Data ke " + counter.toString(), style: TextStyle(fontSize: 30),),
+                          );
                           counter++;
                         });
                       },
-                      child: Icon(Icons.add))
+                      child: Text("Tambah Data")),
+                  ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          widgets.removeLast();
+                          counter--;
+                        });
+                      },
+                      child: Text("Hapus Data"))
                 ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: widgets,
               )
             ],
-          )),
-    );
+          ),
+        ));
   }
 }
