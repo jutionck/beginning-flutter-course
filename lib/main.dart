@@ -18,13 +18,30 @@ class MyApp extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: TextField(
-              autocorrect: true, // auto correct word dalam bahasa inggris
-              autofocus: true,
-              enableInteractiveSelection: true, // untuk copy paste
-              enabled: true,
-              // obscureText: false, // hidden word ketika mengetik e.g password
-              // obscuringCharacter: "#", // memberikan custom hidden
-              keyboardType: TextInputType.phone, // type input
+              autofocus: false,
+              showCursor: true, // memberikan decoration pada cursor input, default true
+              cursorColor: Colors.amber,
+              // cursorWidth: 10,
+              // cursorHeight: 25,
+              // cursorRadius: Radius.circular(20),
+              textAlign: TextAlign.start,
+              // memberikan efek setiap kata huruf besar ada banyak pilihan, seperti words, characters dll
+              textCapitalization: TextCapitalization.none,
+              style: TextStyle(
+                color: Colors.red
+              ),
+              decoration: InputDecoration( // memberikan decoration icon diluar field
+                icon: Icon(Icons.person),
+                border: OutlineInputBorder(),
+                // prefixIcon: Icon(Icons.phone), // memberikan icon di dalam field (start)
+                  suffixIcon: IconButton( // memberikan icon di dalam filed (end)
+                   icon: Icon(Icons.remove_red_eye),
+                   onPressed: () {},
+                  ),
+                // prefixText: "Hp", // memberikan field name
+                hintText: "Masukkan nama anda",
+                labelText: "Full Name" // memberikan label field
+              ),
             ),
           ),
         ),
