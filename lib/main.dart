@@ -28,7 +28,12 @@ class MyApp extends StatelessWidget {
             )
           ],
         ),
-        body: ListView.builder(
+        body: ListView.separated(
+          separatorBuilder: (context, index) {
+            return Divider(
+              color: Colors.black26,
+            );
+          },
           itemCount: myColor.length,
           itemBuilder: (contex, index) {
             return Container(
