@@ -5,99 +5,77 @@ import 'package:flutter/material.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+
+  // DefaultTabController myController = DefaultTabController(length: 3, child: null);
+  final List<Tab> myTab = [
+    Tab(text: "Tab 1", icon: Icon(Icons.add_a_photo)),
+    Tab(text: "Tab 2", icon: Icon(Icons.add_task)),
+    Tab(text: "Tab 3",icon: Icon(Icons.add_alarm)),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
+      home: DefaultTabController( // ada dua argument: length dan child
+        initialIndex: 1, // memberikan initial tab yang aktif ketika aplikasi di jalankan
+        length: myTab.length,
+        child: Scaffold(
         appBar: AppBar(
-          title: Text("Stack and Align"),
-        ),
-        body: Stack(
-          children: [
-            Column(
-              children: [
-                Flexible(
-                    flex: 1,
-                    child: Row(
-                      children: [
-                        Flexible(
-                            flex: 1,
-                            child: Container(
-                              color: Colors.white,
-                            )),
-                        Flexible(
-                            flex: 1,
-                            child: Container(
-                              color: Colors.black12,
-                            ))
-                      ],
-                    )),
-                Flexible(
-                    flex: 1,
-                    child: Row(
-                      children: [
-                        Flexible(
-                            flex: 1,
-                            child: Container(
-                              color: Colors.black12,
-                            )),
-                        Flexible(
-                            flex: 1,
-                            child: Container(
-                              color: Colors.white,
-                            ))
-                      ],
-                    ))
-              ],
-            ),
-            ListView(
-              children: [
-                Column(
-                  children: [
-                    Container(
-                        margin: EdgeInsets.all(10),
-                        child: Text(
-                            "Ini adalah text yang ada di lapisan tengah dari Stack",
-                            style: TextStyle(fontSize: 40))),
-                    Container(
-                        margin: EdgeInsets.all(10),
-                        child: Text(
-                            "Ini adalah text yang ada di lapisan tengah dari Stack",
-                            style: TextStyle(fontSize: 40))),
-                    Container(
-                        margin: EdgeInsets.all(10),
-                        child: Text(
-                            "Ini adalah text yang ada di lapisan tengah dari Stack",
-                            style: TextStyle(fontSize: 40))),
-                    Container(
-                        margin: EdgeInsets.all(10),
-                        child: Text(
-                            "Ini adalah text yang ada di lapisan tengah dari Stack",
-                            style: TextStyle(fontSize: 40))),
-                    Container(
-                        margin: EdgeInsets.all(10),
-                        child: Text(
-                            "Ini adalah text yang ada di lapisan tengah dari Stack",
-                            style: TextStyle(fontSize: 40))),
-                  ],
+          title: Text("Enigma Apps"),
+          centerTitle: true,
+          bottom:  TabBar(
+            // indicatorColor: Colors.black, // memberikan warna active tab
+            tabs: myTab,
+            indicator: BoxDecoration( // modifikasi tab
+              color: Colors.amber,
+              border: Border(
+                bottom: BorderSide(
+                  color: Colors.black,
+                  width: 2
                 )
-              ],
+              )
             ),
-            // untuk memposisikan widget
-            Align(
-              alignment: Alignment(0, 0.90),
-              child: FloatingActionButton(
-                tooltip: "Ini Tombol",
-                child: Icon(Icons.add),
-                onPressed: () {},
-              ),
-            )
-          ],
+            labelColor: Colors.black, // memberikan warna label yang aktif
+            unselectedLabelColor: Colors.white, // memberikan warna label yang tidak arktif
+            labelStyle: TextStyle( // memberikan style pada label yang aktif
+              fontWeight: FontWeight.bold
+            ),
+            unselectedLabelStyle: TextStyle( // memberikan style pada label yang tidak aktif
+              fontWeight: FontWeight.normal
+            ),
+          ),
         ),
+          body: TabBarView( // untuk mengatur tab view sesuai dengan tab diatas yang aktif
+            children: [
+              Center(
+                child: Text(
+                  "Tab 1",
+                  style: TextStyle(
+                    fontSize: 40
+                  ),
+                ),
+              ),
+              Center(
+                child: Text(
+                  "Tab 2",
+                  style: TextStyle(
+                      fontSize: 40
+                  ),
+                ),
+              ),
+              Center(
+                child: Text(
+                  "Tab 3",
+                  style: TextStyle(
+                      fontSize: 40
+                  ),
+                ),
+              )
+            ],
+          ),
+      ),
       ),
     );
   }
 }
+
