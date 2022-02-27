@@ -21,7 +21,7 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
           appBar: AppBar(
             leading: Icon(Icons.code), // biasanya icon
-            title: Text('Chat Sample'),
+            title: Text('Counter Sample'),
             centerTitle: true, // default pada Android adalah false, ios true
             actions: [
               IconButton(
