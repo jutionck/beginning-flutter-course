@@ -4,9 +4,14 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
 
+class _MyAppState extends State<MyApp> {
+  final TextEditingController myController = TextEditingController();
+  String result = "Hasil Input";
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,31 +22,33 @@ class MyApp extends StatelessWidget {
         body: Center(
           child: Padding(
             padding: const EdgeInsets.all(20),
-            child: TextField(
-              autofocus: false,
-              showCursor: true, // memberikan decoration pada cursor input, default true
-              cursorColor: Colors.amber,
-              // cursorWidth: 10,
-              // cursorHeight: 25,
-              // cursorRadius: Radius.circular(20),
-              textAlign: TextAlign.start,
-              // memberikan efek setiap kata huruf besar ada banyak pilihan, seperti words, characters dll
-              textCapitalization: TextCapitalization.none,
-              style: TextStyle(
-                color: Colors.red
-              ),
-              decoration: InputDecoration( // memberikan decoration icon diluar field
-                icon: Icon(Icons.person),
-                border: OutlineInputBorder(),
-                // prefixIcon: Icon(Icons.phone), // memberikan icon di dalam field (start)
-                  suffixIcon: IconButton( // memberikan icon di dalam filed (end)
-                   icon: Icon(Icons.remove_red_eye),
-                   onPressed: () {},
-                  ),
-                // prefixText: "Hp", // memberikan field name
-                hintText: "Masukkan nama anda",
-                labelText: "Full Name" // memberikan label field
-              ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextField(
+                  decoration: InputDecoration(
+                      // memberikan decoration icon diluar field
+                      icon: Icon(Icons.person),
+                      border: OutlineInputBorder(),
+                      hintText: "Masukkan nama anda",
+                      labelText: "Full Name" // memberikan label field
+                      ),
+                  controller: myController,
+                  onChanged: (value) {
+                    print("onchange");
+                  },
+                  onSubmitted: (value) {
+                    print(value);
+                    setState(() {
+                      result = value;
+                    });
+                  },
+                  onEditingComplete: () {
+                    print("Sukses Edit");
+                  },
+                ),
+                Text(result)
+              ],
             ),
           ),
         ),
@@ -49,5 +56,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
