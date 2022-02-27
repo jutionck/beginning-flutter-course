@@ -1,21 +1,25 @@
-import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 
-/// Extract Widget sebenenrnya kita membuat sebuah class baru kemudian class tersebut bisa kita panggil berulang-ulang
-/// Contoh disino kita membuat sebuah widget dari ListTile
-/// Kita akan membuat data dummy, install dev pada pubspec.yaml : faker: ^1.3.0
+/// Stateful widget, adanya perubahan widget
+/// Perubahan itu di tandai dengan fungsi setState
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
-  var faker = new Faker();
+// convert dari stateless -> statefull (wind: alt + enter. mac: option + enter)
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  int counter = 1;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false, // menghilangkan banner showDebugBanner
       home: Scaffold(
           appBar: AppBar(
-            // sebetulnya appBar ini membutuhkan PreferredSizeWidget, tetapi karena AppBar sudah extends jadi tidak perlu lagi
             leading: Icon(Icons.code), // biasanya icon
             title: Text('Chat Sample'),
             centerTitle: true, // default pada Android adalah false, ios true
@@ -26,42 +30,36 @@ class MyApp extends StatelessWidget {
               )
             ],
           ),
-          body: ListView.builder(
-            itemCount: 100,
-            itemBuilder: (context, index) {
-              return ChatItem(
-                imageUrl: "https://picsum.photos/id/$index/200/300",
-                title: faker.person.name(),
-                subTitle: faker.lorem.sentence(),
-                trailing: faker.date.time(),
-              );
-            },
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                "$counter",
+                style: TextStyle(fontSize: 50 + double.parse(counter.toString())),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                      onPressed: () {
+                        if(counter != 1) {
+                          setState(() {
+                            counter--;
+                          });
+                        }
+                      },
+                      child: Icon(Icons.remove)),
+                  ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          counter++;
+                        });
+                      },
+                      child: Icon(Icons.add))
+                ],
+              )
+            ],
           )),
-    );
-  }
-}
-
-class ChatItem extends StatelessWidget {
-  final String imageUrl;
-  final String title;
-  final String subTitle;
-  final String trailing;
-
-  const ChatItem(
-      {required this.imageUrl,
-      required this.title,
-      required this.subTitle,
-      required this.trailing});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: CircleAvatar(
-        backgroundImage: NetworkImage(imageUrl),
-      ),
-      title: Text(title),
-      subtitle: Text(subTitle),
-      trailing: Text(trailing),
     );
   }
 }
